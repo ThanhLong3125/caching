@@ -1,0 +1,26 @@
+{
+  "name": "@caching/caching-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "caching-e2e",
+    "implicitDependencies": [
+      "caching"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/caching-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "caching:build"
+        ]
+      }
+    }
+  }
+}
