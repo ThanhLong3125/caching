@@ -16,6 +16,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'Login User' })
   async login(@Body() payload: Login) {
       return this.authService.login(payload);
   }

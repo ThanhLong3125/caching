@@ -4,9 +4,15 @@ import { IsEmail, IsString, MinLength } from "class-validator";
 export class Register{
     @IsString()
     @ApiProperty({
-        example: 'ten cua ban '
+        example: 'your first name '
     })
-    fullName: string
+    firstName: string;
+
+    @IsString()
+    @ApiProperty({
+        example: 'your last name'
+    })
+    lastName: string;
 
     @IsEmail()
     @IsString()

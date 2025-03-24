@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     //module
     UserModule,
-    AuthModule
+    AuthModule,
+    RedisModule
   ],
   controllers: [AppController],
   providers: [AppService],

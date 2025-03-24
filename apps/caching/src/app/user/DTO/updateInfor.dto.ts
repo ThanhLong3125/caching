@@ -7,6 +7,16 @@ export class UpdateUserInforDTO {
   @ApiProperty({ description: "Your email", example: "yourmail@gmail.com" })
   email: string;
 
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ description: "firstName", example: "firstName" })
+  firstName?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ description: "lastName", example: "lastName" })
+  lastName?: string;
+
   @IsString()
   @IsOptional()
   @ApiPropertyOptional({ description: "Your phone number, default local is Vietnam", example: "+84901234567" })
