@@ -39,5 +39,9 @@
       },
       "exclude": ["apps/caching-e2e/**/*"]
     }
-  ]
+  ],
+  "projects": {
+  "caching": "apps/caching"
+}
+
 }
