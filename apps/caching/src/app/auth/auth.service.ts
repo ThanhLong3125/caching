@@ -14,8 +14,8 @@ export class AuthService{
     async register(payload: Register): Promise<any>{
         const newUser = await this.UserService.createUser({
             ...CreateUserDto, 
-            fullName: payload.fullname, 
-            email: payload.emai, 
+            fullName: payload.fullName, 
+            email: payload.email, 
             password: payload.password
         })
         return {

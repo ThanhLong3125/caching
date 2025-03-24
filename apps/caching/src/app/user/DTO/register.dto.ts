@@ -6,14 +6,14 @@ export class Register{
     @ApiProperty({
         example: 'ten cua ban '
     })
-    fullname: string
+    fullName: string
 
     @IsEmail()
     @IsString()
     @ApiProperty({
         example: 'youremail@gmail.com'
     })
-    emai: string;
+    email: string;
 
     @IsString()
     @ApiProperty({
