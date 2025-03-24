@@ -33,6 +33,9 @@ export class UserService {
       return existingUser.save();
     }
 
+    async returnAllUserInfor(){
+      return this.userModel.find()
+    }
     
 }
 // helper functions

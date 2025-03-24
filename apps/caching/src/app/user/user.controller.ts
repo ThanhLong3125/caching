@@ -1,4 +1,4 @@
-import { Controller, Put, Body } from "@nestjs/common";
+import { Controller, Put, Body, Get } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
 import { UpdateUserInforDTO } from "./DTO/updateInfor.dto";
@@ -14,4 +14,9 @@ export class UserController{
     return this.userService.updateUserCommonInfor(payload);
   }
   
+  @Get()
+  @ApiOperation({ summary: "Get user common information" })
+  async getUserInfor() {
+    return this.userService.returnAllUserInfor();
+  }
 }
