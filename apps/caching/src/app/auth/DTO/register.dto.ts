@@ -6,7 +6,7 @@ export class Register{
     @ApiProperty({
         example: 'ten cua ban '
     })
-    fullname: string
+    fullName: string
 
     @IsEmail()
     @IsString()
