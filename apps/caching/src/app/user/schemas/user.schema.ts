@@ -18,7 +18,7 @@ export class User {
   phone?: string;
 
   @Prop({ default: null })
-  dateOfBirth?: Date;
+  dateOfBirth?: string;
 
   @Prop({ default: 'other', enum: ['male', 'female', 'other'] })
   gender?: string;
@@ -34,9 +34,6 @@ export class User {
 
   @Prop({ default: null })
   country?: string;
-
-  @Prop({default: null})
-  security_answer?: string;
 
   @Prop({default: false})
   protection_2: boolean;

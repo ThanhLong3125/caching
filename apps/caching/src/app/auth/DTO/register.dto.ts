@@ -13,7 +13,7 @@ export class Register{
     @ApiProperty({
         example: 'youremail@gmail.com'
     })
-    emai: string;
+    email: string;
 
     @IsString()
     @ApiProperty({

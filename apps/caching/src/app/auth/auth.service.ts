@@ -24,7 +24,7 @@ export class AuthService {;
             ...CreateUserDto,
             isVerified: true,
             fullName: payload.fullName,
-            email: payload.emai,
+            email: payload.email,
             password: payload.password
         })
         return {
