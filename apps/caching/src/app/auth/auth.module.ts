@@ -7,10 +7,14 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TokenService } from "./token.service";
 import { User, UserSchema } from "../user/schemas/user.schema";
+import { PassportModule } from "@nestjs/passport";
+import { LocalStrategy } from "./passport/local.strategy";
+import { JwtStrategy } from "./jwt.strategy";
 
 @Module({
   imports: [
-    forwardRef(()=>UserModule),
+    forwardRef(() => UserModule),
+    PassportModule.register({ session: true }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.registerAsync({
@@ -25,10 +29,7 @@ import { User, UserSchema } from "../user/schemas/user.schema";
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    TokenService,
-  ],
-  exports: [AuthService, TokenService]
+  providers: [AuthService, TokenService, LocalStrategy, JwtStrategy],
+  exports: [AuthService, TokenService, LocalStrategy, JwtStrategy]
 })
 export class AuthModule { }

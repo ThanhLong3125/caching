@@ -9,18 +9,18 @@ import { CustomCacheInterceptor } from "../redis/service/cache.service";
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
-        forwardRef(()=>RedisModule)
+        MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+        forwardRef(() => RedisModule)
     ],
     providers: [
         UserService,
         {
             provide: APP_INTERCEPTOR,
-            useClass: CustomCacheInterceptor, // Sử dụng interceptor custom
-          },
+            useClass: CustomCacheInterceptor,
+        },
     ],
     exports: [UserService, MongooseModule],
     controllers: [UserController],
 
 })
-export class UserModule{}
+export class UserModule { }
