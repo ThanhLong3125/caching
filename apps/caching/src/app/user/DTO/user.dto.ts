@@ -2,6 +2,13 @@ import { IsEmail, IsEnum, IsOptional, IsString, IsBoolean, IsNumber } from 'clas
 import { Exclude } from 'class-transformer';
 
 export class CreateUserDto {
+
+  @IsString()
+  firstName: string;
+
+  @IsString()
+  lastName: string;
+
   @IsString()
   fullName: string;
 

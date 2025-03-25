@@ -23,7 +23,9 @@ export class AuthService {;
         const newUser = await this.UserService.createUser({
             ...CreateUserDto,
             isVerified: true,
-            fullName: payload.fullName,
+            lastName: payload.lastName,
+            firstName: payload.firstName,
+            fullName: `${payload.lastName} ${payload.firstName}`,
             email: payload.email,
             password: payload.password
         })

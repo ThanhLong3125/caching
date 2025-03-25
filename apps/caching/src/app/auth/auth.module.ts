@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { UserModule } from "../user/user.module";
 import { AuthService } from "./auth.service";
 import { JwtModule } from "@nestjs/jwt";
@@ -6,11 +6,12 @@ import { AuthController } from "./auth.controller";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TokenService } from "./token.service";
+import { User, UserSchema } from "../user/schemas/user.schema";
 
 @Module({
   imports: [
-    UserModule,
-    MongooseModule,
+    forwardRef(()=>UserModule),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -25,10 +26,9 @@ import { TokenService } from "./token.service";
   ],
   controllers: [AuthController],
   providers: [
-    AuthService, 
+    AuthService,
     TokenService,
-    // Thêm ConfigService như một provider nếu cần
   ],
   exports: [AuthService, TokenService]
 })
-export class AuthModule {}
+export class AuthModule { }

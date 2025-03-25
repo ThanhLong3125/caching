@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  redis-stack:
+    container_name: redis-stack
+    image: redis/redis-stack-server:latest
+    restart: always
+    ports:
+      - "6379:6379"  # Cổng Redis chính
+    volumes:
+      - redis_data:/data
+    environment:
+      - REDIS_ARGS=--maxmemory 1gb --appendonly yes --appendfsync everysec --save 300 1 --aof-use-rdb-preamble yes --rdbcompression yes --protected-mode no
+    networks:
+      - redis_network
+
+volumes:
+  redis_data:
+
+networks:
+  redis_network:
+    driver: bridge
