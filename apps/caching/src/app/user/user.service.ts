@@ -23,7 +23,7 @@ export class UserService {
     }
 
     async updateUserCommonInfor(payload: UpdateUserInforDTO){
-      let  existingUser = await this.userModel.findOne({ email: payload.email });
+      const existingUser = await this.userModel.findOne({ email: payload.email });
       if (!existingUser) {
         throw new BadRequestException('Email not exists');
       }
