@@ -4,9 +4,12 @@ import { UserService } from '../../user/user.service';
 import { User, UserDocument } from '../../user/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from "cache-manager";
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
+  private redisClient: Redis;
   private readonly logger = new Logger(RedisService.name);
   private readonly ttlMIN = 3600; // 1 giờ
   private readonly ttlMAX = 3600 * 7 * 24; // 7 ngày
@@ -18,10 +21,11 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   private changeStream: any;
 
   constructor(
-    @Inject('REDIS_CLIENT') private readonly redisClient: Redis,
+    //@Inject('REDIS_CLIENT') private readonly redisClient: Redis,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly userservice: UserService,
-  ) {}
+  ) {this.redisClient = new Redis();}
 
   async onModuleInit() {
     this.redisClient.on('ready', () => {

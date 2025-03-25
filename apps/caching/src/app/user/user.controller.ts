@@ -1,11 +1,13 @@
-import { Controller, Body, Get, Patch } from "@nestjs/common";
+import { Controller, Body, Get, Patch, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
 import { UpdateUserInforDTO } from "./DTO/updateInfor.dto";
 import { RedisService } from "../redis/service/redis.service";
+import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @Controller("user")
 @ApiTags("User")
+//@UseInterceptors(CacheInterceptor)
 export class UserController {
   constructor(
     private readonly userService: UserService,

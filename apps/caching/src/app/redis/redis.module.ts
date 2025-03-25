@@ -7,6 +7,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AutoUpdateAccess } from './service/newaccesstoken.service';
 import { AuthModule } from '../auth/auth.module';
 import { User, UserSchema } from '../user/schemas/user.schema';
+import { CacheModule } from "@nestjs/cache-manager";
+import * as redisStore from "cache-manager-redis-store";
+import { CustomCacheInterceptor } from './service/cache.service';
 
 
 @Global()
@@ -15,27 +18,18 @@ import { User, UserSchema } from '../user/schemas/user.schema';
     AuthModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     forwardRef(()=>UserModule),
+    CacheModule.register({
+      store: redisStore,
+      host: '172.20.0.2',
+      port: 6379,
+      isGlobal: false
+  })
   ],
   providers: [
-    {
-      provide: 'REDIS_CLIENT',
-      useFactory: (configService: ConfigService) => {
-        const client = new Redis({
-          host: configService.get<string>('REDIS_HOST'),
-          port: configService.get<number>('REDIS_PORT'),
-        });
-
-        client.on('error', (err) => {
-          console.error('Redis error:', err);
-        });
-
-        return client;
-      },
-      inject: [ConfigService],
-    },
     RedisService,
     AutoUpdateAccess,
+    CustomCacheInterceptor
   ],
-  exports: ['REDIS_CLIENT', RedisService, AutoUpdateAccess],
+  exports: [ RedisService, AutoUpdateAccess, CacheModule, CustomCacheInterceptor],
 })
 export class RedisModule {}
